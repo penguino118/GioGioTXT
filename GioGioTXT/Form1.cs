@@ -61,7 +61,7 @@ namespace GioGioTXT
 
         private void StripFileOpen_Click(object sender, EventArgs e)
         {
-            ofd.Title = "Select Text File";
+            ofd.Title = "Select Text or PZZ File";
             ofd.Filter = "Text or PZZ Files|*.txt;*.pzz";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -72,15 +72,16 @@ namespace GioGioTXT
                 {
                     string[] text_file = File.ReadLines(input_file, shift_jis).ToArray();
                     LoadAsGameLine(text_file);
-                    save_to_pzz = false;
+                    EnablePZZSave(false);
                 }
 
                 else if (input_file_extension.ToLower() == ".pzz")
                 {
                     FindTypeAndLoad();
-                    save_to_pzz = true;
+                    if (line_group_list.Count > 0) EnablePZZSave(true);
                 };
 
+                if (line_group_list.Count > 0) EnableSave(true);
             }
         }
 
@@ -172,6 +173,18 @@ namespace GioGioTXT
             Close();
         }
 
+        void EnableSave(bool enabled)
+        {
+            StripFileSave.Enabled = enabled;
+            StripFileSaveAs.Enabled = enabled;
+            StripFileSaveAsTXT.Enabled = enabled;
+        }
+
+        void EnablePZZSave(bool enabled)
+        {
+            save_to_pzz = enabled;
+            StripFileSaveAsPZZ.Enabled = enabled;
+        }
         private void FindTypeAndLoad()
         {
             List<PZZFile> file_list = UnpackFromFile(input_file);
@@ -198,9 +211,13 @@ namespace GioGioTXT
             }
             else
             {
-                MessageBox.Show("Couldn't find 3D, 2D or Game type text data.");
+                MessageBox.Show("Couldn't find 3D, 2D or Game type text data.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            if (text_file.byte_array.Length < 1)
+                MessageBox.Show("Text file inside is null or empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             string cleaned_string = text_file.text.TrimEnd('\0'); // remove trailling 0 bytes
 
 

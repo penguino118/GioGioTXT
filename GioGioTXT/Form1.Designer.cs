@@ -31,9 +31,15 @@
             menuStrip1 = new MenuStrip();
             StripFile = new ToolStripMenuItem();
             StripFileOpen = new ToolStripMenuItem();
+            StripFileOpenAs = new ToolStripMenuItem();
+            StripFileOpenAs3D = new ToolStripMenuItem();
+            StripFileOpenAs2D = new ToolStripMenuItem();
+            StripFileOpenAsGame = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
             StripFileSave = new ToolStripMenuItem();
             StripFileSaveAs = new ToolStripMenuItem();
+            StripFileSaveAsPZZ = new ToolStripMenuItem();
+            StripFileSaveAsTXT = new ToolStripMenuItem();
             toolStripSeparator2 = new ToolStripSeparator();
             StripFileQuit = new ToolStripMenuItem();
             RichTextInput = new RichTextBox();
@@ -70,12 +76,6 @@
             LineGroupPicker = new ComboBox();
             SplitContainerMain = new SplitContainer();
             SplitContainerInput = new SplitContainer();
-            pZZToolStripMenuItem = new ToolStripMenuItem();
-            textFiletxtToolStripMenuItem = new ToolStripMenuItem();
-            openTextFileAsToolStripMenuItem = new ToolStripMenuItem();
-            dCutsceneDialogueToolStripMenuItem = new ToolStripMenuItem();
-            dCutscenDialogueToolStripMenuItem = new ToolStripMenuItem();
-            stageDialogueToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)EndFrameCounter).BeginInit();
             PropertiesTable.SuspendLayout();
@@ -112,7 +112,7 @@
             // 
             // StripFile
             // 
-            StripFile.DropDownItems.AddRange(new ToolStripItem[] { StripFileOpen, openTextFileAsToolStripMenuItem, toolStripSeparator1, StripFileSave, StripFileSaveAs, toolStripSeparator2, StripFileQuit });
+            StripFile.DropDownItems.AddRange(new ToolStripItem[] { StripFileOpen, StripFileOpenAs, toolStripSeparator1, StripFileSave, StripFileSaveAs, toolStripSeparator2, StripFileQuit });
             StripFile.Name = "StripFile";
             StripFile.Size = new Size(37, 20);
             StripFile.Text = "File";
@@ -120,39 +120,80 @@
             // StripFileOpen
             // 
             StripFileOpen.Name = "StripFileOpen";
-            StripFileOpen.Size = new Size(171, 22);
+            StripFileOpen.Size = new Size(180, 22);
             StripFileOpen.Text = "Open";
             StripFileOpen.Click += StripFileOpen_Click;
+            // 
+            // StripFileOpenAs
+            // 
+            StripFileOpenAs.DropDownItems.AddRange(new ToolStripItem[] { StripFileOpenAs3D, StripFileOpenAs2D, StripFileOpenAsGame });
+            StripFileOpenAs.Name = "StripFileOpenAs";
+            StripFileOpenAs.Size = new Size(180, 22);
+            StripFileOpenAs.Text = "Open Text File as...";
+            // 
+            // StripFileOpenAs3D
+            // 
+            StripFileOpenAs3D.Name = "StripFileOpenAs3D";
+            StripFileOpenAs3D.Size = new Size(190, 22);
+            StripFileOpenAs3D.Text = "3D Cutscene Dialogue";
+            // 
+            // StripFileOpenAs2D
+            // 
+            StripFileOpenAs2D.Name = "StripFileOpenAs2D";
+            StripFileOpenAs2D.Size = new Size(190, 22);
+            StripFileOpenAs2D.Text = "2D Cutscene Dialogue";
+            // 
+            // StripFileOpenAsGame
+            // 
+            StripFileOpenAsGame.Name = "StripFileOpenAsGame";
+            StripFileOpenAsGame.Size = new Size(190, 22);
+            StripFileOpenAsGame.Text = "Game Dialogue";
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(168, 6);
+            toolStripSeparator1.Size = new Size(177, 6);
             // 
             // StripFileSave
             // 
+            StripFileSave.Enabled = false;
             StripFileSave.Name = "StripFileSave";
-            StripFileSave.Size = new Size(171, 22);
+            StripFileSave.Size = new Size(180, 22);
             StripFileSave.Text = "Save";
             StripFileSave.Click += StripFileSave_Click;
             // 
             // StripFileSaveAs
             // 
-            StripFileSaveAs.DropDownItems.AddRange(new ToolStripItem[] { pZZToolStripMenuItem, textFiletxtToolStripMenuItem });
+            StripFileSaveAs.DropDownItems.AddRange(new ToolStripItem[] { StripFileSaveAsPZZ, StripFileSaveAsTXT });
+            StripFileSaveAs.Enabled = false;
             StripFileSaveAs.Name = "StripFileSaveAs";
-            StripFileSaveAs.Size = new Size(171, 22);
+            StripFileSaveAs.Size = new Size(180, 22);
             StripFileSaveAs.Text = "Save as...";
             StripFileSaveAs.Click += StripFileSaveAs_Click;
+            // 
+            // StripFileSaveAsPZZ
+            // 
+            StripFileSaveAsPZZ.Enabled = false;
+            StripFileSaveAsPZZ.Name = "StripFileSaveAsPZZ";
+            StripFileSaveAsPZZ.Size = new Size(180, 22);
+            StripFileSaveAsPZZ.Text = "PZZ File (,pzz)";
+            // 
+            // StripFileSaveAsTXT
+            // 
+            StripFileSaveAsTXT.Enabled = false;
+            StripFileSaveAsTXT.Name = "StripFileSaveAsTXT";
+            StripFileSaveAsTXT.Size = new Size(180, 22);
+            StripFileSaveAsTXT.Text = "Text File (.txt)";
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(168, 6);
+            toolStripSeparator2.Size = new Size(177, 6);
             // 
             // StripFileQuit
             // 
             StripFileQuit.Name = "StripFileQuit";
-            StripFileQuit.Size = new Size(171, 22);
+            StripFileQuit.Size = new Size(180, 22);
             StripFileQuit.Text = "Exit";
             StripFileQuit.Click += StripFileQuit_Click;
             // 
@@ -600,43 +641,6 @@
             SplitContainerInput.SplitterDistance = 228;
             SplitContainerInput.TabIndex = 0;
             // 
-            // pZZToolStripMenuItem
-            // 
-            pZZToolStripMenuItem.Name = "pZZToolStripMenuItem";
-            pZZToolStripMenuItem.Size = new Size(147, 22);
-            pZZToolStripMenuItem.Text = "PZZ File (,pzz)";
-            // 
-            // textFiletxtToolStripMenuItem
-            // 
-            textFiletxtToolStripMenuItem.Name = "textFiletxtToolStripMenuItem";
-            textFiletxtToolStripMenuItem.Size = new Size(147, 22);
-            textFiletxtToolStripMenuItem.Text = "Text File (.txt)";
-            // 
-            // openTextFileAsToolStripMenuItem
-            // 
-            openTextFileAsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dCutsceneDialogueToolStripMenuItem, dCutscenDialogueToolStripMenuItem, stageDialogueToolStripMenuItem });
-            openTextFileAsToolStripMenuItem.Name = "openTextFileAsToolStripMenuItem";
-            openTextFileAsToolStripMenuItem.Size = new Size(171, 22);
-            openTextFileAsToolStripMenuItem.Text = "Open Text File as...";
-            // 
-            // dCutsceneDialogueToolStripMenuItem
-            // 
-            dCutsceneDialogueToolStripMenuItem.Name = "dCutsceneDialogueToolStripMenuItem";
-            dCutsceneDialogueToolStripMenuItem.Size = new Size(190, 22);
-            dCutsceneDialogueToolStripMenuItem.Text = "3D Cutscene Dialogue";
-            // 
-            // dCutscenDialogueToolStripMenuItem
-            // 
-            dCutscenDialogueToolStripMenuItem.Name = "dCutscenDialogueToolStripMenuItem";
-            dCutscenDialogueToolStripMenuItem.Size = new Size(190, 22);
-            dCutscenDialogueToolStripMenuItem.Text = "2D Cutscene Dialogue";
-            // 
-            // stageDialogueToolStripMenuItem
-            // 
-            stageDialogueToolStripMenuItem.Name = "stageDialogueToolStripMenuItem";
-            stageDialogueToolStripMenuItem.Size = new Size(190, 22);
-            stageDialogueToolStripMenuItem.Text = "Stage Dialogue";
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -724,11 +728,11 @@
         private SplitContainer SplitContainerMain;
         private SplitContainer SplitContainerLineSel;
         private SplitContainer SplitContainerInput;
-        private ToolStripMenuItem openTextFileAsToolStripMenuItem;
-        private ToolStripMenuItem dCutsceneDialogueToolStripMenuItem;
-        private ToolStripMenuItem dCutscenDialogueToolStripMenuItem;
-        private ToolStripMenuItem stageDialogueToolStripMenuItem;
-        private ToolStripMenuItem pZZToolStripMenuItem;
-        private ToolStripMenuItem textFiletxtToolStripMenuItem;
+        private ToolStripMenuItem StripFileOpenAs;
+        private ToolStripMenuItem StripFileOpenAs3D;
+        private ToolStripMenuItem StripFileOpenAs2D;
+        private ToolStripMenuItem StripFileOpenAsGame;
+        private ToolStripMenuItem StripFileSaveAsPZZ;
+        private ToolStripMenuItem StripFileSaveAsTXT;
     }
 }
