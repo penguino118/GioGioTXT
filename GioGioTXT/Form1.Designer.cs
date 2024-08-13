@@ -64,9 +64,18 @@
             LineGrid = new DataGridView();
             LineColumn = new DataGridViewTextBoxColumn();
             LineSelectionGroup = new GroupBox();
+            SplitContainerLineSel = new SplitContainer();
             LineGroupRemove = new Button();
             LineGroupAdd = new Button();
             LineGroupPicker = new ComboBox();
+            SplitContainerMain = new SplitContainer();
+            SplitContainerInput = new SplitContainer();
+            pZZToolStripMenuItem = new ToolStripMenuItem();
+            textFiletxtToolStripMenuItem = new ToolStripMenuItem();
+            openTextFileAsToolStripMenuItem = new ToolStripMenuItem();
+            dCutsceneDialogueToolStripMenuItem = new ToolStripMenuItem();
+            dCutscenDialogueToolStripMenuItem = new ToolStripMenuItem();
+            stageDialogueToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)EndFrameCounter).BeginInit();
             PropertiesTable.SuspendLayout();
@@ -78,6 +87,18 @@
             PropertiesGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)LineGrid).BeginInit();
             LineSelectionGroup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)SplitContainerLineSel).BeginInit();
+            SplitContainerLineSel.Panel1.SuspendLayout();
+            SplitContainerLineSel.Panel2.SuspendLayout();
+            SplitContainerLineSel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)SplitContainerMain).BeginInit();
+            SplitContainerMain.Panel1.SuspendLayout();
+            SplitContainerMain.Panel2.SuspendLayout();
+            SplitContainerMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)SplitContainerInput).BeginInit();
+            SplitContainerInput.Panel1.SuspendLayout();
+            SplitContainerInput.Panel2.SuspendLayout();
+            SplitContainerInput.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
@@ -85,13 +106,13 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { StripFile });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(754, 24);
+            menuStrip1.Size = new Size(734, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
             // StripFile
             // 
-            StripFile.DropDownItems.AddRange(new ToolStripItem[] { StripFileOpen, toolStripSeparator1, StripFileSave, StripFileSaveAs, toolStripSeparator2, StripFileQuit });
+            StripFile.DropDownItems.AddRange(new ToolStripItem[] { StripFileOpen, openTextFileAsToolStripMenuItem, toolStripSeparator1, StripFileSave, StripFileSaveAs, toolStripSeparator2, StripFileQuit });
             StripFile.Name = "StripFile";
             StripFile.Size = new Size(37, 20);
             StripFile.Text = "File";
@@ -99,47 +120,49 @@
             // StripFileOpen
             // 
             StripFileOpen.Name = "StripFileOpen";
-            StripFileOpen.Size = new Size(121, 22);
+            StripFileOpen.Size = new Size(171, 22);
             StripFileOpen.Text = "Open";
             StripFileOpen.Click += StripFileOpen_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(118, 6);
+            toolStripSeparator1.Size = new Size(168, 6);
             // 
             // StripFileSave
             // 
             StripFileSave.Name = "StripFileSave";
-            StripFileSave.Size = new Size(121, 22);
+            StripFileSave.Size = new Size(171, 22);
             StripFileSave.Text = "Save";
             StripFileSave.Click += StripFileSave_Click;
             // 
             // StripFileSaveAs
             // 
+            StripFileSaveAs.DropDownItems.AddRange(new ToolStripItem[] { pZZToolStripMenuItem, textFiletxtToolStripMenuItem });
             StripFileSaveAs.Name = "StripFileSaveAs";
-            StripFileSaveAs.Size = new Size(121, 22);
+            StripFileSaveAs.Size = new Size(171, 22);
             StripFileSaveAs.Text = "Save as...";
             StripFileSaveAs.Click += StripFileSaveAs_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(118, 6);
+            toolStripSeparator2.Size = new Size(168, 6);
             // 
             // StripFileQuit
             // 
             StripFileQuit.Name = "StripFileQuit";
-            StripFileQuit.Size = new Size(121, 22);
+            StripFileQuit.Size = new Size(171, 22);
             StripFileQuit.Text = "Exit";
             StripFileQuit.Click += StripFileQuit_Click;
             // 
             // RichTextInput
             // 
+            RichTextInput.Dock = DockStyle.Fill;
             RichTextInput.Enabled = false;
-            RichTextInput.Location = new Point(380, 233);
+            RichTextInput.Location = new Point(0, 0);
             RichTextInput.Name = "RichTextInput";
-            RichTextInput.Size = new Size(366, 71);
+            RichTextInput.Size = new Size(366, 85);
             RichTextInput.TabIndex = 1;
             RichTextInput.Text = "";
             RichTextInput.TextChanged += RichTextInput_TextChanged;
@@ -156,6 +179,7 @@
             // 
             // EndFrameCounter
             // 
+            EndFrameCounter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             EndFrameCounter.Location = new Point(255, 32);
             EndFrameCounter.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
             EndFrameCounter.Minimum = new decimal(new int[] { 1, 0, 0, int.MinValue });
@@ -176,6 +200,7 @@
             // 
             // BubbleShapePicker
             // 
+            BubbleShapePicker.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BubbleShapePicker.FormattingEnabled = true;
             BubbleShapePicker.Items.AddRange(new object[] { "Speech (Tiny)", "Speech (Medium)", "Speech (Big)", "Thought (Tiny)", "Thought (Medium)", "Thought (Big)", "Scream (Tiny)", "Scream (Medium)", "Scream (Big)", "Ghost (Tiny)", "Ghost (Medium)", "Ghost (Big)", "Narration (Tiny)", "Narration (Medium)", "Narration (Big)" });
             BubbleShapePicker.Location = new Point(255, 61);
@@ -196,6 +221,7 @@
             // 
             // BubbleTailPicker
             // 
+            BubbleTailPicker.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BubbleTailPicker.FormattingEnabled = true;
             BubbleTailPicker.Items.AddRange(new object[] { "Top Left", "Top Right", "Bottom Left", "Bottom Right" });
             BubbleTailPicker.Location = new Point(255, 90);
@@ -216,6 +242,7 @@
             // 
             // BubblePositionPicker
             // 
+            BubblePositionPicker.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BubblePositionPicker.FormattingEnabled = true;
             BubblePositionPicker.Items.AddRange(new object[] { "Top Left", "Top Middle", "Top Right", "Center Left", "Center Middle", "Center Right", "Bottom Left", "Bottom Middle", "Bottom Right" });
             BubblePositionPicker.Location = new Point(255, 119);
@@ -268,7 +295,7 @@
             PropertiesTable.RowStyles.Add(new RowStyle());
             PropertiesTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             PropertiesTable.RowStyles.Add(new RowStyle());
-            PropertiesTable.Size = new Size(360, 175);
+            PropertiesTable.Size = new Size(360, 206);
             PropertiesTable.TabIndex = 11;
             // 
             // StartFrameLabel
@@ -343,6 +370,7 @@
             // 
             // CutInPositionPicker
             // 
+            CutInPositionPicker.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             CutInPositionPicker.FormattingEnabled = true;
             CutInPositionPicker.Items.AddRange(new object[] { "Top Left", "Top Right" });
             CutInPositionPicker.Location = new Point(255, 293);
@@ -353,6 +381,7 @@
             // 
             // CutInPanelPicker
             // 
+            CutInPanelPicker.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             CutInPanelPicker.FormattingEnabled = true;
             CutInPanelPicker.Items.AddRange(new object[] { "Player (Neutral)", "Player (Shock)", "Player (Hurt)", "Player (Attack)", "Enemy (Neutral)", "Enemy (Shock)", "Enemy (Hurt)", "Enemy (Attack)", "Stage Specific (A)", "StageSpecific ( B)", "Stace Specific (C)", "Stage Specific (D)" });
             CutInPanelPicker.Location = new Point(255, 264);
@@ -363,6 +392,7 @@
             // 
             // Panel2DBehaviorCounter
             // 
+            Panel2DBehaviorCounter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Panel2DBehaviorCounter.BackColor = SystemColors.Window;
             Panel2DBehaviorCounter.Location = new Point(255, 235);
             Panel2DBehaviorCounter.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
@@ -374,6 +404,7 @@
             // 
             // Panel2DIndexCounter
             // 
+            Panel2DIndexCounter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Panel2DIndexCounter.BackColor = SystemColors.Window;
             Panel2DIndexCounter.Location = new Point(255, 206);
             Panel2DIndexCounter.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
@@ -384,6 +415,7 @@
             // 
             // BubblePosYCounter
             // 
+            BubblePosYCounter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BubblePosYCounter.BackColor = SystemColors.Window;
             BubblePosYCounter.Location = new Point(255, 177);
             BubblePosYCounter.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
@@ -395,6 +427,7 @@
             // 
             // BubblePosXCounter
             // 
+            BubblePosXCounter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BubblePosXCounter.BackColor = SystemColors.Window;
             BubblePosXCounter.Location = new Point(255, 148);
             BubblePosXCounter.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
@@ -406,6 +439,7 @@
             // 
             // StartFrameCounter
             // 
+            StartFrameCounter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             StartFrameCounter.Location = new Point(255, 3);
             StartFrameCounter.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
             StartFrameCounter.Minimum = new decimal(new int[] { 1, 0, 0, int.MinValue });
@@ -417,10 +451,11 @@
             // PropertiesGroup
             // 
             PropertiesGroup.Controls.Add(PropertiesTable);
+            PropertiesGroup.Dock = DockStyle.Fill;
             PropertiesGroup.Enabled = false;
-            PropertiesGroup.Location = new Point(380, 27);
+            PropertiesGroup.Location = new Point(0, 0);
             PropertiesGroup.Name = "PropertiesGroup";
-            PropertiesGroup.Size = new Size(366, 197);
+            PropertiesGroup.Size = new Size(366, 228);
             PropertiesGroup.TabIndex = 12;
             PropertiesGroup.TabStop = false;
             PropertiesGroup.Text = "Properties";
@@ -432,13 +467,14 @@
             LineGrid.BackgroundColor = SystemColors.ControlLight;
             LineGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             LineGrid.Columns.AddRange(new DataGridViewColumn[] { LineColumn });
+            LineGrid.Dock = DockStyle.Fill;
             LineGrid.Enabled = false;
-            LineGrid.Location = new Point(6, 51);
+            LineGrid.Location = new Point(0, 0);
             LineGrid.MultiSelect = false;
             LineGrid.Name = "LineGrid";
             LineGrid.RowHeadersVisible = false;
             LineGrid.RowTemplate.Resizable = DataGridViewTriState.False;
-            LineGrid.Size = new Size(350, 220);
+            LineGrid.Size = new Size(352, 258);
             LineGrid.TabIndex = 14;
             LineGrid.CellEndEdit += LineGrid_CellEndEdit;
             LineGrid.SelectionChanged += LineGrid_SelectionChanged;
@@ -453,24 +489,48 @@
             // 
             // LineSelectionGroup
             // 
-            LineSelectionGroup.Controls.Add(LineGroupRemove);
-            LineSelectionGroup.Controls.Add(LineGroupAdd);
-            LineSelectionGroup.Controls.Add(LineGroupPicker);
-            LineSelectionGroup.Controls.Add(LineGrid);
+            LineSelectionGroup.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            LineSelectionGroup.AutoSize = true;
+            LineSelectionGroup.Controls.Add(SplitContainerLineSel);
             LineSelectionGroup.Enabled = false;
-            LineSelectionGroup.Location = new Point(12, 27);
+            LineSelectionGroup.Location = new Point(3, 3);
             LineSelectionGroup.Name = "LineSelectionGroup";
-            LineSelectionGroup.Size = new Size(362, 277);
+            LineSelectionGroup.Size = new Size(358, 311);
             LineSelectionGroup.TabIndex = 15;
             LineSelectionGroup.TabStop = false;
             LineSelectionGroup.Text = "Line Selection";
             // 
+            // SplitContainerLineSel
+            // 
+            SplitContainerLineSel.Dock = DockStyle.Fill;
+            SplitContainerLineSel.FixedPanel = FixedPanel.Panel1;
+            SplitContainerLineSel.Location = new Point(3, 19);
+            SplitContainerLineSel.Name = "SplitContainerLineSel";
+            SplitContainerLineSel.Orientation = Orientation.Horizontal;
+            // 
+            // SplitContainerLineSel.Panel1
+            // 
+            SplitContainerLineSel.Panel1.Controls.Add(LineGroupRemove);
+            SplitContainerLineSel.Panel1.Controls.Add(LineGroupAdd);
+            SplitContainerLineSel.Panel1.Controls.Add(LineGroupPicker);
+            SplitContainerLineSel.Panel1MinSize = 23;
+            // 
+            // SplitContainerLineSel.Panel2
+            // 
+            SplitContainerLineSel.Panel2.Controls.Add(LineGrid);
+            SplitContainerLineSel.Size = new Size(352, 289);
+            SplitContainerLineSel.SplitterDistance = 27;
+            SplitContainerLineSel.TabIndex = 17;
+            // 
             // LineGroupRemove
             // 
+            LineGroupRemove.Anchor = AnchorStyles.Right;
             LineGroupRemove.Enabled = false;
-            LineGroupRemove.Location = new Point(260, 22);
+            LineGroupRemove.Location = new Point(164, 2);
+            LineGroupRemove.MaximumSize = new Size(100, 23);
+            LineGroupRemove.MinimumSize = new Size(100, 23);
             LineGroupRemove.Name = "LineGroupRemove";
-            LineGroupRemove.Size = new Size(96, 23);
+            LineGroupRemove.Size = new Size(100, 23);
             LineGroupRemove.TabIndex = 18;
             LineGroupRemove.Text = "Remove Group";
             LineGroupRemove.UseVisualStyleBackColor = true;
@@ -478,7 +538,10 @@
             // 
             // LineGroupAdd
             // 
-            LineGroupAdd.Location = new Point(170, 22);
+            LineGroupAdd.Anchor = AnchorStyles.Right;
+            LineGroupAdd.Location = new Point(265, 2);
+            LineGroupAdd.MaximumSize = new Size(100, 23);
+            LineGroupAdd.MinimumSize = new Size(80, 23);
             LineGroupAdd.Name = "LineGroupAdd";
             LineGroupAdd.Size = new Size(84, 23);
             LineGroupAdd.TabIndex = 17;
@@ -488,8 +551,9 @@
             // 
             // LineGroupPicker
             // 
+            LineGroupPicker.Anchor = AnchorStyles.Left;
             LineGroupPicker.FormattingEnabled = true;
-            LineGroupPicker.Location = new Point(6, 22);
+            LineGroupPicker.Location = new Point(0, 2);
             LineGroupPicker.Name = "LineGroupPicker";
             LineGroupPicker.Size = new Size(158, 23);
             LineGroupPicker.TabIndex = 15;
@@ -497,16 +561,91 @@
             LineGroupPicker.SelectedIndexChanged += LineGroupPicker_SelectedIndexChanged;
             LineGroupPicker.SelectionChangeCommitted += LineGroupPicker_SelectionChangeCommitted;
             // 
+            // SplitContainerMain
+            // 
+            SplitContainerMain.Dock = DockStyle.Fill;
+            SplitContainerMain.Location = new Point(0, 24);
+            SplitContainerMain.MinimumSize = new Size(720, 277);
+            SplitContainerMain.Name = "SplitContainerMain";
+            // 
+            // SplitContainerMain.Panel1
+            // 
+            SplitContainerMain.Panel1.Controls.Add(LineSelectionGroup);
+            SplitContainerMain.Panel1MinSize = 360;
+            // 
+            // SplitContainerMain.Panel2
+            // 
+            SplitContainerMain.Panel2.Controls.Add(SplitContainerInput);
+            SplitContainerMain.Panel2MinSize = 360;
+            SplitContainerMain.Size = new Size(734, 317);
+            SplitContainerMain.SplitterDistance = 364;
+            SplitContainerMain.TabIndex = 16;
+            // 
+            // SplitContainerInput
+            // 
+            SplitContainerInput.Dock = DockStyle.Fill;
+            SplitContainerInput.Location = new Point(0, 0);
+            SplitContainerInput.Name = "SplitContainerInput";
+            SplitContainerInput.Orientation = Orientation.Horizontal;
+            // 
+            // SplitContainerInput.Panel1
+            // 
+            SplitContainerInput.Panel1.Controls.Add(PropertiesGroup);
+            SplitContainerInput.Panel1MinSize = 200;
+            // 
+            // SplitContainerInput.Panel2
+            // 
+            SplitContainerInput.Panel2.Controls.Add(RichTextInput);
+            SplitContainerInput.Size = new Size(366, 317);
+            SplitContainerInput.SplitterDistance = 228;
+            SplitContainerInput.TabIndex = 0;
+            // 
+            // pZZToolStripMenuItem
+            // 
+            pZZToolStripMenuItem.Name = "pZZToolStripMenuItem";
+            pZZToolStripMenuItem.Size = new Size(147, 22);
+            pZZToolStripMenuItem.Text = "PZZ File (,pzz)";
+            // 
+            // textFiletxtToolStripMenuItem
+            // 
+            textFiletxtToolStripMenuItem.Name = "textFiletxtToolStripMenuItem";
+            textFiletxtToolStripMenuItem.Size = new Size(147, 22);
+            textFiletxtToolStripMenuItem.Text = "Text File (.txt)";
+            // 
+            // openTextFileAsToolStripMenuItem
+            // 
+            openTextFileAsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dCutsceneDialogueToolStripMenuItem, dCutscenDialogueToolStripMenuItem, stageDialogueToolStripMenuItem });
+            openTextFileAsToolStripMenuItem.Name = "openTextFileAsToolStripMenuItem";
+            openTextFileAsToolStripMenuItem.Size = new Size(171, 22);
+            openTextFileAsToolStripMenuItem.Text = "Open Text File as...";
+            // 
+            // dCutsceneDialogueToolStripMenuItem
+            // 
+            dCutsceneDialogueToolStripMenuItem.Name = "dCutsceneDialogueToolStripMenuItem";
+            dCutsceneDialogueToolStripMenuItem.Size = new Size(190, 22);
+            dCutsceneDialogueToolStripMenuItem.Text = "3D Cutscene Dialogue";
+            // 
+            // dCutscenDialogueToolStripMenuItem
+            // 
+            dCutscenDialogueToolStripMenuItem.Name = "dCutscenDialogueToolStripMenuItem";
+            dCutscenDialogueToolStripMenuItem.Size = new Size(190, 22);
+            dCutscenDialogueToolStripMenuItem.Text = "2D Cutscene Dialogue";
+            // 
+            // stageDialogueToolStripMenuItem
+            // 
+            stageDialogueToolStripMenuItem.Name = "stageDialogueToolStripMenuItem";
+            stageDialogueToolStripMenuItem.Size = new Size(190, 22);
+            stageDialogueToolStripMenuItem.Text = "Stage Dialogue";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(754, 315);
-            Controls.Add(LineSelectionGroup);
-            Controls.Add(PropertiesGroup);
-            Controls.Add(RichTextInput);
+            ClientSize = new Size(734, 341);
+            Controls.Add(SplitContainerMain);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
+            MinimumSize = new Size(750, 380);
             Name = "Form1";
             Text = "Form1";
             menuStrip1.ResumeLayout(false);
@@ -522,6 +661,19 @@
             PropertiesGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)LineGrid).EndInit();
             LineSelectionGroup.ResumeLayout(false);
+            SplitContainerLineSel.Panel1.ResumeLayout(false);
+            SplitContainerLineSel.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)SplitContainerLineSel).EndInit();
+            SplitContainerLineSel.ResumeLayout(false);
+            SplitContainerMain.Panel1.ResumeLayout(false);
+            SplitContainerMain.Panel1.PerformLayout();
+            SplitContainerMain.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)SplitContainerMain).EndInit();
+            SplitContainerMain.ResumeLayout(false);
+            SplitContainerInput.Panel1.ResumeLayout(false);
+            SplitContainerInput.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)SplitContainerInput).EndInit();
+            SplitContainerInput.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -569,5 +721,14 @@
         private NumericUpDown StartFrameCounter;
         private Label CutInPositionLabel;
         private ComboBox CutInPositionPicker;
+        private SplitContainer SplitContainerMain;
+        private SplitContainer SplitContainerLineSel;
+        private SplitContainer SplitContainerInput;
+        private ToolStripMenuItem openTextFileAsToolStripMenuItem;
+        private ToolStripMenuItem dCutsceneDialogueToolStripMenuItem;
+        private ToolStripMenuItem dCutscenDialogueToolStripMenuItem;
+        private ToolStripMenuItem stageDialogueToolStripMenuItem;
+        private ToolStripMenuItem pZZToolStripMenuItem;
+        private ToolStripMenuItem textFiletxtToolStripMenuItem;
     }
 }

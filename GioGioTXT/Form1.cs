@@ -740,23 +740,6 @@ namespace GioGioTXT
             }
         }
 
-
-        // RMOEV
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Show2DLineProperties();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Show3DLineProperties();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            ShowGameLineProperties();
-        }
-
         private void BubbleShapePicker_SelectionChangeCommitted(object sender, EventArgs e)
         {
             int line_group_index = LineGroupPicker.SelectedIndex;
