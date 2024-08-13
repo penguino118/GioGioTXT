@@ -3,7 +3,6 @@ using System.Text;
 using System.Windows.Forms;
 using static GioGioTXT.ggText;
 using static GioGioTXT.PZZ;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace GioGioTXT
 {
@@ -90,38 +89,16 @@ namespace GioGioTXT
             if (save_to_pzz)
             {
 
-                List<PZZFile> file_list = UnpackFromFile(input_file);
-
-                int file_count = file_list.Count;
+                List<PZZFile> pzz_file_list = UnpackFromFile(input_file);
                 byte[] text_bytes = null;
 
                 using (var stream = new MemoryStream())
                 {
-
                     WriteLinesToMemoryStream(stream, line_group_list, current_text_type, shift_jis);
                     text_bytes = stream.ToArray();
                 }
 
-                if (file_count == 3) // likely a 3D cutscene file
-                {
-                    if (file_list[1].type != "TextData") return;
-                    file_list[1].byte_array = text_bytes;
-                }
-                else if (file_count == 4) // likely a 2D cutscene file 
-                {
-                    if (file_list[3].type != "TextData") return;
-                    file_list[3].byte_array = text_bytes;
-                }
-                else if (file_count == 5) // likely a stage demo file
-                {
-                    if (file_list[2].type != "TextData") return;
-                    file_list[2].byte_array = text_bytes;
-                }
-                else
-                {
-                    MessageBox.Show("Couldn't find 3D, 2D or Game type text data on pzz.");
-                    return;
-                }
+                ReplaceTextOnPZZ(pzz_file_list, text_bytes);
 
                 using (var stream = File.Open(input_file, FileMode.OpenOrCreate))
                 {
@@ -129,7 +106,7 @@ namespace GioGioTXT
 
                     using (var writer = new BinaryWriter(stream))
                     {
-                        WriteOutputData(writer, stream, file_list);
+                        WriteOutputData(writer, stream, pzz_file_list);
                     }
                 }
                 return;
@@ -147,7 +124,54 @@ namespace GioGioTXT
             }
         }
 
-        private void StripFileSaveAs_Click(object sender, EventArgs e)
+        private void StripFileOpenAs3D_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void StripFileOpenAs2D_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void StripFileSaveAsPZZ_Click(object sender, EventArgs e)
+        {
+            if (save_to_pzz != true) return; // shouldn't happen
+
+            sfd.Title = "Save PZZ File";
+            sfd.Filter = "PZZ Files|*.pzz";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                output_file = sfd.FileName;
+
+                if (output_file is null)
+                {
+                    MessageBox.Show("The ouput path for the file is null.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                byte[] text_bytes = null;
+                using (var stream = new MemoryStream())
+                {
+                    WriteLinesToMemoryStream(stream, line_group_list, current_text_type, shift_jis);
+                    text_bytes = stream.ToArray();
+                }
+
+                List<PZZFile> pzz_file_list = UnpackFromFile(input_file);
+                ReplaceTextOnPZZ(pzz_file_list, text_bytes);
+
+                using (var stream = File.Open(output_file, FileMode.OpenOrCreate))
+                {
+                    using (var writer = new BinaryWriter(stream))
+                    {
+                        WriteOutputData(writer, stream, pzz_file_list);
+                    }
+                }
+            }
+        }
+
+        
+        private void StripFileSaveAsTXT_Click(object sender, EventArgs e)
         {
             sfd.Title = "Save Text File";
             sfd.Filter = "Text Files|*.txt";
@@ -185,6 +209,33 @@ namespace GioGioTXT
             save_to_pzz = enabled;
             StripFileSaveAsPZZ.Enabled = enabled;
         }
+
+        void ReplaceTextOnPZZ(List<PZZFile> file_list, byte[] new_text)
+        {
+            int file_count = file_list.Count;
+            if (file_count == 3) // likely a 3D cutscene file
+            {
+                if (file_list[1].type != "TextData") return;
+                file_list[1].byte_array = new_text;
+            }
+            else if (file_count == 4) // likely a 2D cutscene file 
+            {
+                if (file_list[3].type != "TextData") return;
+                file_list[3].byte_array = new_text;
+            }
+            else if (file_count == 5) // likely a stage demo file
+            {
+                if (file_list[2].type != "TextData") return;
+                file_list[2].byte_array = new_text;
+            }
+            else
+            {
+                MessageBox.Show("Couldn't find 3D, 2D or Game type text data on the PZZ it was loaded from."
+                    , "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
         private void FindTypeAndLoad()
         {
             List<PZZFile> file_list = UnpackFromFile(input_file);
@@ -411,7 +462,7 @@ namespace GioGioTXT
             try
             {
 
-                switch(current_text_type)
+                switch (current_text_type)
                 {
                     case TextType.Gameplay:
                         {
@@ -420,9 +471,9 @@ namespace GioGioTXT
                             EndFrameCounter.Value = current_line.frame_end;
                             CutInPanelPicker.SelectedIndex = (int)current_line.cutin_panel;
                             CutInPositionPicker.SelectedIndex = (int)current_line.cutin_position;
-                        } 
+                        }
                         break;
-                    
+
                     case TextType.Demo2D:
                         {
                             Lines2D current_line = line_group_list[line_group_index][line_index] as Lines2D;
@@ -483,7 +534,7 @@ namespace GioGioTXT
             SetRichTextFormatting();
 
             if (LineGrid.CurrentRow == null) return;
-            string current_text = String.Join("\\n", RichTextInput.Lines);
+            string current_text = System.String.Join("\\n", RichTextInput.Lines);
             UpdateLineText(current_text);
             LineGrid.CurrentRow.SetValues(current_text);
         }
@@ -500,21 +551,21 @@ namespace GioGioTXT
             RichTextInput.Select(0, RichText.Length);
             RichTextInput.SelectionColor = SystemColors.WindowText;
             RichTextInput.SelectionFont = font_default;
-            
-            for (int i = 0; i < RichText.Length-2; i++)
+
+            for (int i = 0; i < RichText.Length - 2; i++)
             {
                 string format_test = RichText.Substring(i, 2);
                 int start_index = i + 3; // start of text within format tag
                 switch (format_test)
                 {
-                    
+
                     case "\\c": // special characters from cock.pzz
                         {
                             RichTextInput.Select(i, 3);
                             RichTextInput.SelectionColor = text_palette[5];
                         }
                         break;
-                    
+
                     case "\\b": // big text
                         {
                             if (RichText.Substring(i + 2, 1) == "s") // check if big text starts here
@@ -532,7 +583,7 @@ namespace GioGioTXT
                             RichTextInput.SelectionColor = text_palette[7];
                         }
                         break;
-                    
+
                     case "\\d": // dot emphasis
                         {
                             if (RichText.Substring(i + 2, 1) == "s") // check if emphasis text (underline) starts here
@@ -550,17 +601,17 @@ namespace GioGioTXT
                             RichTextInput.SelectionColor = text_palette[7];
                         }
                         break;
-                    
+
                     case "\\k": // singular char dot emphasis
                         {
-                            RichTextInput.Select(i+2, 1);
+                            RichTextInput.Select(i + 2, 1);
                             RichTextInput.SelectionFont = font_underline;
                             // color the formatting tag light
                             RichTextInput.Select(i, 2);
                             RichTextInput.SelectionColor = text_palette[7];
                         }
                         break;
-                    
+
                     case "\\p": // paletted text
                         {
                             if (int.TryParse(RichText.Substring(i + 2, 1), out _) != true) // check if palette index is a number
@@ -885,5 +936,7 @@ namespace GioGioTXT
                 current_line.behavior = new_value;
             }
         }
+
+        
     }
 }

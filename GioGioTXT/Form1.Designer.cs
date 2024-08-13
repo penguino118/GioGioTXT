@@ -34,7 +34,6 @@
             StripFileOpenAs = new ToolStripMenuItem();
             StripFileOpenAs3D = new ToolStripMenuItem();
             StripFileOpenAs2D = new ToolStripMenuItem();
-            StripFileOpenAsGame = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
             StripFileSave = new ToolStripMenuItem();
             StripFileSaveAs = new ToolStripMenuItem();
@@ -126,7 +125,7 @@
             // 
             // StripFileOpenAs
             // 
-            StripFileOpenAs.DropDownItems.AddRange(new ToolStripItem[] { StripFileOpenAs3D, StripFileOpenAs2D, StripFileOpenAsGame });
+            StripFileOpenAs.DropDownItems.AddRange(new ToolStripItem[] { StripFileOpenAs3D, StripFileOpenAs2D });
             StripFileOpenAs.Name = "StripFileOpenAs";
             StripFileOpenAs.Size = new Size(180, 22);
             StripFileOpenAs.Text = "Open Text File as...";
@@ -136,18 +135,14 @@
             StripFileOpenAs3D.Name = "StripFileOpenAs3D";
             StripFileOpenAs3D.Size = new Size(190, 22);
             StripFileOpenAs3D.Text = "3D Cutscene Dialogue";
+            StripFileOpenAs3D.Click += StripFileOpenAs3D_Click;
             // 
             // StripFileOpenAs2D
             // 
             StripFileOpenAs2D.Name = "StripFileOpenAs2D";
             StripFileOpenAs2D.Size = new Size(190, 22);
             StripFileOpenAs2D.Text = "2D Cutscene Dialogue";
-            // 
-            // StripFileOpenAsGame
-            // 
-            StripFileOpenAsGame.Name = "StripFileOpenAsGame";
-            StripFileOpenAsGame.Size = new Size(190, 22);
-            StripFileOpenAsGame.Text = "Game Dialogue";
+            StripFileOpenAs2D.Click += StripFileOpenAs2D_Click;
             // 
             // toolStripSeparator1
             // 
@@ -169,7 +164,6 @@
             StripFileSaveAs.Name = "StripFileSaveAs";
             StripFileSaveAs.Size = new Size(180, 22);
             StripFileSaveAs.Text = "Save as...";
-            StripFileSaveAs.Click += StripFileSaveAs_Click;
             // 
             // StripFileSaveAsPZZ
             // 
@@ -177,6 +171,7 @@
             StripFileSaveAsPZZ.Name = "StripFileSaveAsPZZ";
             StripFileSaveAsPZZ.Size = new Size(180, 22);
             StripFileSaveAsPZZ.Text = "PZZ File (,pzz)";
+            StripFileSaveAsPZZ.Click += StripFileSaveAsPZZ_Click;
             // 
             // StripFileSaveAsTXT
             // 
@@ -184,6 +179,7 @@
             StripFileSaveAsTXT.Name = "StripFileSaveAsTXT";
             StripFileSaveAsTXT.Size = new Size(180, 22);
             StripFileSaveAsTXT.Text = "Text File (.txt)";
+            StripFileSaveAsTXT.Click += StripFileSaveAsTXT_Click;
             // 
             // toolStripSeparator2
             // 
@@ -731,7 +727,6 @@
         private ToolStripMenuItem StripFileOpenAs;
         private ToolStripMenuItem StripFileOpenAs3D;
         private ToolStripMenuItem StripFileOpenAs2D;
-        private ToolStripMenuItem StripFileOpenAsGame;
         private ToolStripMenuItem StripFileSaveAsPZZ;
         private ToolStripMenuItem StripFileSaveAsTXT;
     }
