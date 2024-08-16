@@ -32,8 +32,8 @@
             StripFile = new ToolStripMenuItem();
             StripFileOpen = new ToolStripMenuItem();
             StripFileOpenAs = new ToolStripMenuItem();
-            StripFileOpenAs3D = new ToolStripMenuItem();
             StripFileOpenAs2D = new ToolStripMenuItem();
+            StripFileOpenAs3D = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
             StripFileSave = new ToolStripMenuItem();
             StripFileSaveAs = new ToolStripMenuItem();
@@ -112,12 +112,14 @@
             // StripFile
             // 
             StripFile.DropDownItems.AddRange(new ToolStripItem[] { StripFileOpen, StripFileOpenAs, toolStripSeparator1, StripFileSave, StripFileSaveAs, toolStripSeparator2, StripFileQuit });
+            StripFile.Image = Properties.Resources.File;
             StripFile.Name = "StripFile";
-            StripFile.Size = new Size(37, 20);
+            StripFile.Size = new Size(53, 20);
             StripFile.Text = "File";
             // 
             // StripFileOpen
             // 
+            StripFileOpen.Image = Properties.Resources.FileOpen;
             StripFileOpen.Name = "StripFileOpen";
             StripFileOpen.Size = new Size(180, 22);
             StripFileOpen.Text = "Open";
@@ -130,19 +132,19 @@
             StripFileOpenAs.Size = new Size(180, 22);
             StripFileOpenAs.Text = "Open Text File as...";
             // 
-            // StripFileOpenAs3D
-            // 
-            StripFileOpenAs3D.Name = "StripFileOpenAs3D";
-            StripFileOpenAs3D.Size = new Size(190, 22);
-            StripFileOpenAs3D.Text = "3D Cutscene Dialogue";
-            StripFileOpenAs3D.Click += StripFileOpenAs3D_Click;
-            // 
             // StripFileOpenAs2D
             // 
             StripFileOpenAs2D.Name = "StripFileOpenAs2D";
             StripFileOpenAs2D.Size = new Size(190, 22);
             StripFileOpenAs2D.Text = "2D Cutscene Dialogue";
             StripFileOpenAs2D.Click += StripFileOpenAs2D_Click;
+            // 
+            // StripFileOpenAs3D
+            // 
+            StripFileOpenAs3D.Name = "StripFileOpenAs3D";
+            StripFileOpenAs3D.Size = new Size(190, 22);
+            StripFileOpenAs3D.Text = "3D Cutscene Dialogue";
+            StripFileOpenAs3D.Click += StripFileOpenAs3D_Click;
             // 
             // toolStripSeparator1
             // 
@@ -152,6 +154,7 @@
             // StripFileSave
             // 
             StripFileSave.Enabled = false;
+            StripFileSave.Image = Properties.Resources.FileSave;
             StripFileSave.Name = "StripFileSave";
             StripFileSave.Size = new Size(180, 22);
             StripFileSave.Text = "Save";
@@ -188,6 +191,7 @@
             // 
             // StripFileQuit
             // 
+            StripFileQuit.Image = Properties.Resources.FileExit;
             StripFileQuit.Name = "StripFileQuit";
             StripFileQuit.Size = new Size(180, 22);
             StripFileQuit.Text = "Exit";
@@ -647,7 +651,7 @@
             MainMenuStrip = menuStrip1;
             MinimumSize = new Size(750, 380);
             Name = "Form1";
-            Text = "Form1";
+            Text = "GioGioTXT";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)EndFrameCounter).EndInit();
