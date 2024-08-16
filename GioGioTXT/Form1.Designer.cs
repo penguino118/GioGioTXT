@@ -125,7 +125,7 @@
             // 
             // StripFileOpenAs
             // 
-            StripFileOpenAs.DropDownItems.AddRange(new ToolStripItem[] { StripFileOpenAs3D, StripFileOpenAs2D });
+            StripFileOpenAs.DropDownItems.AddRange(new ToolStripItem[] { StripFileOpenAs2D, StripFileOpenAs3D });
             StripFileOpenAs.Name = "StripFileOpenAs";
             StripFileOpenAs.Size = new Size(180, 22);
             StripFileOpenAs.Text = "Open Text File as...";
@@ -169,7 +169,7 @@
             // 
             StripFileSaveAsPZZ.Enabled = false;
             StripFileSaveAsPZZ.Name = "StripFileSaveAsPZZ";
-            StripFileSaveAsPZZ.Size = new Size(180, 22);
+            StripFileSaveAsPZZ.Size = new Size(147, 22);
             StripFileSaveAsPZZ.Text = "PZZ File (,pzz)";
             StripFileSaveAsPZZ.Click += StripFileSaveAsPZZ_Click;
             // 
@@ -177,7 +177,7 @@
             // 
             StripFileSaveAsTXT.Enabled = false;
             StripFileSaveAsTXT.Name = "StripFileSaveAsTXT";
-            StripFileSaveAsTXT.Size = new Size(180, 22);
+            StripFileSaveAsTXT.Size = new Size(147, 22);
             StripFileSaveAsTXT.Text = "Text File (.txt)";
             StripFileSaveAsTXT.Click += StripFileSaveAsTXT_Click;
             // 
