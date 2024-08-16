@@ -84,6 +84,40 @@ namespace GioGioTXT
             }
         }
 
+        private void StripFileOpenAs3D_Click(object sender, EventArgs e)
+        {
+            ofd.Title = "Select Text Files";
+            ofd.Filter = "Text Files|*.txt";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                line_group_list.Clear();
+                input_file = ofd.FileName;
+                string input_file_extension = Path.GetExtension(input_file);
+                string[] text_file = File.ReadLines(input_file, shift_jis).ToArray();
+                current_text_type = TextType.Demo3D;
+                LoadAs3DLine(text_file);
+                EnablePZZSave(false);
+                if (line_group_list.Count > 0) EnableSave(true);
+            }
+        }
+
+        private void StripFileOpenAs2D_Click(object sender, EventArgs e)
+        {
+            ofd.Title = "Select Text Files";
+            ofd.Filter = "Text Files|*.txt";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                line_group_list.Clear();
+                input_file = ofd.FileName;
+                string input_file_extension = Path.GetExtension(input_file);
+                string[] text_file = File.ReadLines(input_file, shift_jis).ToArray();
+                current_text_type = TextType.Demo2D;
+                LoadAs2DLine(text_file);
+                EnablePZZSave(false);
+                if (line_group_list.Count > 0) EnableSave(true);
+            }
+        }
+
         private void StripFileSave_Click(object sender, EventArgs e)
         {
             if (save_to_pzz)
@@ -122,16 +156,6 @@ namespace GioGioTXT
             {
                 WriteLinesToStream(stream, line_group_list, current_text_type, shift_jis);
             }
-        }
-
-        private void StripFileOpenAs3D_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void StripFileOpenAs2D_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void StripFileSaveAsPZZ_Click(object sender, EventArgs e)
