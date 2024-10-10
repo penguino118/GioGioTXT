@@ -60,6 +60,13 @@ namespace GioGioTXT
         System.Drawing.Font font_big; // ds/k tagged text
         System.Drawing.Font font_underline; // bs tagged text
 
+        private void UpdateTitlebar()
+        {
+            this.Text = "GioGioTXT";
+            if (input_file == "") return;
+            this.Text += " - [" + input_file + "]";
+        }
+
         public void LoadFileFromAFS(int file_index)
         {
             try
@@ -67,7 +74,8 @@ namespace GioGioTXT
                 StreamEntry afs_file = current_afs.Entries[file_index] as StreamEntry;
                 Stream filestream = afs_file.GetStream();
                 string extension = Path.GetExtension(afs_file.Name);
-
+                input_file = afs_file.Name;
+                line_group_list.Clear();
                 if (extension.ToLower() == ".txt")
                 {
                     List<string> text_lines = new List<string>();
@@ -91,7 +99,11 @@ namespace GioGioTXT
                     if (line_group_list.Count > 0) SetUISaveOptionsPZZ(true);
                 }
 
-                if (line_group_list.Count > 0) SetUISaveOptionsAFS();
+                if (line_group_list.Count > 0)
+                {
+                    SetUISaveOptionsAFS();
+                    UpdateTitlebar();
+                }
             }
             catch (Exception ex)
             {
@@ -123,7 +135,11 @@ namespace GioGioTXT
                     if (line_group_list.Count > 0) SetUISaveOptionsPZZ(true);
                 };
 
-                if (line_group_list.Count > 0) SetUISaveOptions(true);
+                if (line_group_list.Count > 0) {
+                    SetUISaveOptions(true);
+                    UpdateTitlebar();
+                };
+                
             }
         }
 
@@ -140,7 +156,10 @@ namespace GioGioTXT
                 current_text_type = TextType.Demo3D;
                 LoadAs3DLine(text_file);
                 SetUISaveOptionsPZZ(false);
-                if (line_group_list.Count > 0) SetUISaveOptions(true);
+                if (line_group_list.Count > 0) {
+                    SetUISaveOptions(true);
+                    UpdateTitlebar();
+                }
             }
         }
 
@@ -157,7 +176,10 @@ namespace GioGioTXT
                 current_text_type = TextType.Demo2D;
                 LoadAs2DLine(text_file);
                 SetUISaveOptionsPZZ(false);
-                if (line_group_list.Count > 0) SetUISaveOptions(true);
+                if (line_group_list.Count > 0) {
+                    SetUISaveOptions(true);
+                    UpdateTitlebar();
+                }
             }
         }
 
@@ -234,6 +256,8 @@ namespace GioGioTXT
                         WriteOutputData(writer, stream, pzz_file_list);
                     }
                 }
+                input_file = output_file;
+                UpdateTitlebar();
             }
         }
 
@@ -256,6 +280,10 @@ namespace GioGioTXT
                 {
                     WriteLinesToStream(stream, line_group_list, current_text_type, shift_jis);
                 }
+
+                input_file = output_file;
+                SetUISaveOptionsPZZ(false);
+                UpdateTitlebar();
             }
         }
 
