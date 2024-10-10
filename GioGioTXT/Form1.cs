@@ -1,3 +1,5 @@
+using AFSLib;
+using GioGioTXT.GioGioTXT;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -41,6 +43,7 @@ namespace GioGioTXT
         TextType current_text_type;
         bool update_richtextinput = true; // so it doesnt update before the rows while switching groups 
         bool save_to_pzz = false;
+        AFS current_afs = new AFS();
 
         List<Color> text_palette = new List<Color> {
             Color.Black,    //p0, black
@@ -57,6 +60,45 @@ namespace GioGioTXT
         System.Drawing.Font font_big; // ds/k tagged text
         System.Drawing.Font font_underline; // bs tagged text
 
+        public void LoadFileFromAFS(int file_index)
+        {
+            try
+            {
+                StreamEntry afs_file = current_afs.Entries[file_index] as StreamEntry;
+                Stream filestream = afs_file.GetStream();
+                string extension = Path.GetExtension(afs_file.Name);
+
+                if (extension.ToLower() == ".txt")
+                {
+                    List<string> text_lines = new List<string>();
+
+                    using (StreamReader reader = new StreamReader(filestream, shift_jis))
+                    {
+                        while (reader.Peek() >= 0)
+                        {
+                            text_lines.Add(reader.ReadLine());
+                        }
+                    }
+
+                    LoadAsGameLine(text_lines.ToArray());
+                    SetUISaveOptionsPZZ(false);
+                }
+                else if (extension.ToLower() == ".pzz")
+                {
+                    List<PZZFile> pzz_file_list = new List<PZZFile>();
+                    UnpackFromStream(filestream, pzz_file_list);
+                    FindTypeAndLoad(pzz_file_list);
+                    if (line_group_list.Count > 0) SetUISaveOptionsPZZ(true);
+                }
+
+                if (line_group_list.Count > 0) SetUISaveOptionsAFS();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading from AFS.\n" + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
 
         private void StripFileOpen_Click(object sender, EventArgs e)
         {
@@ -71,16 +113,17 @@ namespace GioGioTXT
                 {
                     string[] text_file = File.ReadLines(input_file, shift_jis).ToArray();
                     LoadAsGameLine(text_file);
-                    EnablePZZSave(false);
+                    SetUISaveOptionsPZZ(false);
                 }
 
                 else if (input_file_extension.ToLower() == ".pzz")
                 {
-                    FindTypeAndLoad();
-                    if (line_group_list.Count > 0) EnablePZZSave(true);
+                    List<PZZFile> file_list = UnpackFromFile(input_file);
+                    FindTypeAndLoad(file_list);
+                    if (line_group_list.Count > 0) SetUISaveOptionsPZZ(true);
                 };
 
-                if (line_group_list.Count > 0) EnableSave(true);
+                if (line_group_list.Count > 0) SetUISaveOptions(true);
             }
         }
 
@@ -96,8 +139,8 @@ namespace GioGioTXT
                 string[] text_file = File.ReadLines(input_file, shift_jis).ToArray();
                 current_text_type = TextType.Demo3D;
                 LoadAs3DLine(text_file);
-                EnablePZZSave(false);
-                if (line_group_list.Count > 0) EnableSave(true);
+                SetUISaveOptionsPZZ(false);
+                if (line_group_list.Count > 0) SetUISaveOptions(true);
             }
         }
 
@@ -113,8 +156,8 @@ namespace GioGioTXT
                 string[] text_file = File.ReadLines(input_file, shift_jis).ToArray();
                 current_text_type = TextType.Demo2D;
                 LoadAs2DLine(text_file);
-                EnablePZZSave(false);
-                if (line_group_list.Count > 0) EnableSave(true);
+                SetUISaveOptionsPZZ(false);
+                if (line_group_list.Count > 0) SetUISaveOptions(true);
             }
         }
 
@@ -194,7 +237,7 @@ namespace GioGioTXT
             }
         }
 
-        
+
         private void StripFileSaveAsTXT_Click(object sender, EventArgs e)
         {
             sfd.Title = "Save Text File";
@@ -221,17 +264,26 @@ namespace GioGioTXT
             Close();
         }
 
-        void EnableSave(bool enabled)
+        void SetUISaveOptions(bool enabled)
         {
             StripFileSave.Enabled = enabled;
             StripFileSaveAs.Enabled = enabled;
             StripFileSaveAsTXT.Enabled = enabled;
         }
 
-        void EnablePZZSave(bool enabled)
+        void SetUISaveOptionsPZZ(bool enabled)
         {
             save_to_pzz = enabled;
             StripFileSaveAsPZZ.Enabled = enabled;
+        }
+
+        void SetUISaveOptionsAFS()
+        {
+            save_to_pzz = false;
+            StripFileSaveAsPZZ.Enabled = false;
+            StripFileSave.Enabled = false;
+            StripFileSaveAs.Enabled = true;
+            StripFileSaveAsTXT.Enabled = true;
         }
 
         void ReplaceTextOnPZZ(List<PZZFile> file_list, byte[] new_text)
@@ -260,9 +312,8 @@ namespace GioGioTXT
             }
         }
 
-        private void FindTypeAndLoad()
+        private void FindTypeAndLoad(List<PZZFile> file_list)
         {
-            List<PZZFile> file_list = UnpackFromFile(input_file);
             int file_count = file_list.Count;
             TextFile text_file = null;
 
@@ -961,6 +1012,24 @@ namespace GioGioTXT
             }
         }
 
-        
+        private void StripFileFromAFS_Click(object sender, EventArgs e)
+        {
+            ofd.Title = "Select AFS File";
+            ofd.Filter = "AFS Files|*.afs";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                string input_afs = ofd.FileName;
+                List<string> filelist = new List<string>();
+                current_afs = new AFS(input_afs);
+
+                foreach (StreamEntry entry in current_afs.Entries)
+                {
+                    filelist.Add(entry.Name);
+                }
+                var filepicker_form = new AFSFilePicker(this);
+                filepicker_form.Show();
+                filepicker_form.BuildTree(Path.GetFileName(input_afs), filelist);
+            }
+        }
     }
 }

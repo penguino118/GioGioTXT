@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GioGioTXT.Properties {
+namespace GioGioTXT.GioGioTXT.Properties {
     using System;
     
     
@@ -57,6 +57,26 @@ namespace GioGioTXT.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AFSPicker_file {
+            get {
+                object obj = ResourceManager.GetObject("AFSPicker_file", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AFSPicker_root {
+            get {
+                object obj = ResourceManager.GetObject("AFSPicker_root", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

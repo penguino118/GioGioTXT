@@ -75,6 +75,7 @@
             LineGroupPicker = new ComboBox();
             SplitContainerMain = new SplitContainer();
             SplitContainerInput = new SplitContainer();
+            StripFileFromAFS = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)EndFrameCounter).BeginInit();
             PropertiesTable.SuspendLayout();
@@ -111,15 +112,15 @@
             // 
             // StripFile
             // 
-            StripFile.DropDownItems.AddRange(new ToolStripItem[] { StripFileOpen, StripFileOpenAs, toolStripSeparator1, StripFileSave, StripFileSaveAs, toolStripSeparator2, StripFileQuit });
-            StripFile.Image = Properties.Resources.File;
+            StripFile.DropDownItems.AddRange(new ToolStripItem[] { StripFileOpen, StripFileFromAFS, StripFileOpenAs, toolStripSeparator1, StripFileSave, StripFileSaveAs, toolStripSeparator2, StripFileQuit });
+            StripFile.Image = GioGioTXT.Properties.Resources.File;
             StripFile.Name = "StripFile";
             StripFile.Size = new Size(53, 20);
             StripFile.Text = "File";
             // 
             // StripFileOpen
             // 
-            StripFileOpen.Image = Properties.Resources.FileOpen;
+            StripFileOpen.Image = GioGioTXT.Properties.Resources.FileOpen;
             StripFileOpen.Name = "StripFileOpen";
             StripFileOpen.Size = new Size(180, 22);
             StripFileOpen.Text = "Open";
@@ -154,7 +155,7 @@
             // StripFileSave
             // 
             StripFileSave.Enabled = false;
-            StripFileSave.Image = Properties.Resources.FileSave;
+            StripFileSave.Image = GioGioTXT.Properties.Resources.FileSave;
             StripFileSave.Name = "StripFileSave";
             StripFileSave.Size = new Size(180, 22);
             StripFileSave.Text = "Save";
@@ -191,7 +192,7 @@
             // 
             // StripFileQuit
             // 
-            StripFileQuit.Image = Properties.Resources.FileExit;
+            StripFileQuit.Image = GioGioTXT.Properties.Resources.FileExit;
             StripFileQuit.Name = "StripFileQuit";
             StripFileQuit.Size = new Size(180, 22);
             StripFileQuit.Text = "Exit";
@@ -641,6 +642,13 @@
             SplitContainerInput.SplitterDistance = 228;
             SplitContainerInput.TabIndex = 0;
             // 
+            // StripFileFromAFS
+            // 
+            StripFileFromAFS.Name = "StripFileFromAFS";
+            StripFileFromAFS.Size = new Size(180, 22);
+            StripFileFromAFS.Text = "Load File From AFS";
+            StripFileFromAFS.Click += StripFileFromAFS_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -733,5 +741,6 @@
         private ToolStripMenuItem StripFileOpenAs2D;
         private ToolStripMenuItem StripFileSaveAsPZZ;
         private ToolStripMenuItem StripFileSaveAsTXT;
+        private ToolStripMenuItem StripFileFromAFS;
     }
 }
